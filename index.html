@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Collection Form</title>
+    <!-- Carga de Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Configuration for Inter font and base colors */
+        :root {
+            --primary-color: #3b82f6; /* Blue 500 */
+            --secondary-color: #6366f1; /* Indigo 500 */
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Gray 100 */
+        }
+        .form-input, .form-checkbox {
+            transition: all 0.3s ease;
+        }
+        .form-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* Blue 500 with opacity */
+        }
+        /* Note: Custom radio button CSS removed as the element was replaced by a select dropdown */
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+
+    <!-- Main Form Container (Aesthetic Card) -->
+    <div class="w-full max-w-lg bg-white rounded-xl shadow-2xl p-6 sm:p-10 border border-gray-200">
+        
+        <header class="mb-8 text-center">
+            <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Information Registration</h1>
+            <p class="mt-2 text-gray-500">Please complete the fields below.</p>
+        </header>
+
+        <!-- The form that sends data to the webhook -->
+        <form action="https://hook.us1.make.com/9ts6i3xmuhosy9qh2andkh3bqokrcmgh" method="POST" class="space-y-6">
+            
+            <!-- Name Field -->
+            <div>
+                <label for="Name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                <input 
+                    type="text" 
+                    id="Name" 
+                    name="Name" 
+                    required 
+                    placeholder="Enter your name"
+                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                >
+            </div>
+
+            <!-- Last Name Field -->
+            <div>
+                <label for="LastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                <input 
+                    type="text" 
+                    id="LastName" 
+                    name="LastName" 
+                    required 
+                    placeholder="Enter your last name"
+                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                >
+            </div>
+
+            <!-- Email Field -->
+            <div>
+                <label for="Email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                <input 
+                    type="email" 
+                    id="Email" 
+                    name="Email" 
+                    required 
+                    placeholder="example@domain.com"
+                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                >
+            </div>
+            
+            <!-- UPDATED: Single Choice Field (Select Dropdown for Account Type) -->
+            <div>
+                <label for="AccountType" class="block text-sm font-medium text-gray-700 mb-1">Account Type</label>
+                <select 
+                    id="AccountType" 
+                    name="AccountType" 
+                    required
+                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg appearance-none bg-white focus:ring-2 focus:ring-blue-500"
+                >
+                    <option value="Admin">Admin</option>
+                    <option value="User" selected>User</option>
+                </select>
+            </div>
+
+            <!-- Multiple Choice Field (Checkboxes) -->
+            <fieldset>
+                <legend class="block text-sm font-medium text-gray-700 mb-2">Select Options (Multiple Choice)</legend>
+                <div class="space-y-3">
+                    <!-- Option MFI -->
+                    <div class="flex items-center">
+                        <input id="MFI" name="Choice" type="checkbox" value="MFI" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        <label for="MFI" class="ml-3 block text-sm text-gray-700">MFI</label>
+                    </div>
+                    <!-- Option Auren -->
+                    <div class="flex items-center">
+                        <input id="Auren" name="Choice" type="checkbox" value="Auren" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        <label for="Auren" class="ml-3 block text-sm text-gray-700">Auren</label>
+                    </div>
+                    <!-- Option Prime -->
+                    <div class="flex items-center">
+                        <input id="Prime" name="Choice" type="checkbox" value="Prime" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        <label for="Prime" class="ml-3 block text-sm text-gray-700">Prime</label>
+                    </div>
+                    <!-- Option Davis -->
+                    <div class="flex items-center">
+                        <input id="Davis" name="Choice" type="checkbox" value="Davis" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                        <label for="Davis" class="ml-3 block text-sm text-gray-700">Davis</label>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Submit Button -->
+            <button 
+                type="submit" 
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-[1.01] focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50"
+            >
+                Submit Data
+            </button>
+        </form>
+
+        <footer class="mt-8 text-center text-xs text-gray-400">
+            Data will be securely sent to the Make.com webhook.
+        </footer>
+
+    </div>
+
+</body>
+</html>
