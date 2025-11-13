@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Collection Form</title>
+    <title>Data Management Interface</title>
     <!-- Carga de Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -38,6 +38,18 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        /* Tab styling */
+        .tab-button.active {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .tab-button {
+            color: #4b5563; /* Gray 600 */
+            border-color: transparent;
+            margin-right: 1rem;
+            padding-bottom: 0.5rem;
+        }
     </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
@@ -45,107 +57,168 @@
     <!-- Main Form Container (Aesthetic Card) -->
     <div class="w-full max-w-lg bg-white rounded-xl shadow-2xl p-6 sm:p-10 border border-gray-200">
         
-        <header class="mb-8 text-center">
-            <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Information Registration</h1>
-            <p class="mt-2 text-gray-500">Please complete the fields below.</p>
+        <header class="mb-6 text-center">
+            <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Information Manager</h1>
+            <p class="mt-2 text-gray-500">Manage creation and deletion requests.</p>
         </header>
+
+        <!-- Tabs Navigation -->
+        <div class="flex border-b border-gray-200 mb-6">
+            <button id="tab-creation" onclick="showTab('creation')" class="tab-button active py-2 px-4 text-sm font-medium border-b-2 transition duration-150 ease-in-out">Creation</button>
+            <button id="tab-deletion" onclick="showTab('deletion')" class="tab-button py-2 px-4 text-sm font-medium border-b-2 transition duration-150 ease-in-out">Deletion</button>
+        </div>
         
-        <!-- Status Message Container -->
+        <!-- Status Message Container (Shared by both forms) -->
         <div id="status-message" class="hidden p-4 mb-4 rounded-lg text-center font-medium"></div>
 
-        <!-- The form that sends data to the webhook -->
-        <form id="data-form" action="https://hook.us1.make.com/9ts6i3xmuhosy9qh2andkh3bqokrcmgh" method="POST" class="space-y-6">
+        <!-- Tab Content Container -->
+        <div id="tab-content">
             
-            <!-- Name Field -->
-            <div>
-                <label for="Name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                <input 
-                    type="text" 
-                    id="Name" 
-                    name="Name" 
-                    required 
-                    placeholder="Enter your name"
-                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                >
+            <!-- 1. Creation Form Tab Content -->
+            <div id="creation-tab-content" class="tab-content">
+                <form id="creation-form" action="https://hook.us1.make.com/9ts6i3xmuhosy9qh2andkh3bqokrcmgh" method="POST" class="space-y-6">
+                    
+                    <!-- Name Field -->
+                    <div>
+                        <label for="Name" class="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                        <input 
+                            type="text" 
+                            id="Name" 
+                            name="Name" 
+                            required 
+                            placeholder="Enter your name"
+                            class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        >
+                    </div>
+
+                    <!-- Last Name Field -->
+                    <div>
+                        <label for="LastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                        <input 
+                            type="text" 
+                            id="LastName" 
+                            name="LastName" 
+                            required 
+                            placeholder="Enter your last name"
+                            class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        >
+                    </div>
+
+                    <!-- Email Field -->
+                    <div>
+                        <label for="Email-C" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="Email-C" 
+                            name="Email" 
+                            required 
+                            placeholder="example@domain.com"
+                            class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        >
+                    </div>
+                    
+                    <!-- Single Choice Field (Select Dropdown for Account Type) -->
+                    <div>
+                        <label for="AccountType" class="block text-sm font-medium text-gray-700 mb-1">Account Type</label>
+                        <select 
+                            id="AccountType" 
+                            name="AccountType" 
+                            required
+                            class="form-input form-select w-full px-4 py-2 border border-gray-300 rounded-lg appearance-none bg-white focus:ring-2 focus:ring-blue-500"
+                        >
+                            <option value="Admin">Admin</option>
+                            <option value="User" selected>User</option>
+                        </select>
+                    </div>
+
+                    <!-- Multiple Choice Field (Checkboxes) - Creation -->
+                    <fieldset>
+                        <legend class="block text-sm font-medium text-gray-700 mb-2">Select Options (Multiple Choice) <span class="text-red-500">*</span></legend>
+                        <div class="space-y-3">
+                            <!-- Options must have the same name attribute as the deletion form's options -->
+                            <div class="flex items-center">
+                                <input id="MFI-C" name="Choice" type="checkbox" value="MFI" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="MFI-C" class="ml-3 block text-sm text-gray-700">MFI</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="Auren-C" name="Choice" type="checkbox" value="Auren" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="Auren-C" class="ml-3 block text-sm text-gray-700">Auren</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="Prime-C" name="Choice" type="checkbox" value="Prime" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="Prime-C" class="ml-3 block text-sm text-gray-700">Prime</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="Davis-C" name="Choice" type="checkbox" value="Davis" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="Davis-C" class="ml-3 block text-sm text-gray-700">Davis</label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Submit Button - Creation -->
+                    <button 
+                        type="submit" 
+                        class="submit-button w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-[1.01] focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 flex items-center justify-center disabled:opacity-60 disabled:cursor-not-allowed"
+                    >
+                        <span class="button-text">Submit Creation Request</span>
+                        <span class="button-spinner hidden ml-3 spinner"></span>
+                    </button>
+                </form>
             </div>
 
-            <!-- Last Name Field -->
-            <div>
-                <label for="LastName" class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
-                <input 
-                    type="text" 
-                    id="LastName" 
-                    name="LastName" 
-                    required 
-                    placeholder="Enter your last name"
-                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                >
+            <!-- 2. Deletion Form Tab Content -->
+            <div id="deletion-tab-content" class="tab-content hidden">
+                <form id="deletion-form" action="https://hook.us1.make.com/9ts6i3xmuhosy9qh2andkh3bqokrcmgh" method="POST" class="space-y-6">
+
+                    <!-- Email Field -->
+                    <div>
+                        <label for="Email-D" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                        <input 
+                            type="email" 
+                            id="Email-D" 
+                            name="Email" 
+                            required 
+                            placeholder="Enter email to delete"
+                            class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        >
+                    </div>
+
+                    <!-- Multiple Choice Field (Checkboxes) - Deletion -->
+                    <fieldset>
+                        <legend class="block text-sm font-medium text-gray-700 mb-2">Select Options (Multiple Choice) <span class="text-red-500">*</span></legend>
+                        <div class="space-y-3">
+                            <!-- Options must have the same name attribute as the creation form's options -->
+                            <div class="flex items-center">
+                                <input id="MFI-D" name="Choice" type="checkbox" value="MFI" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="MFI-D" class="ml-3 block text-sm text-gray-700">MFI</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="Auren-D" name="Choice" type="checkbox" value="Auren" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="Auren-D" class="ml-3 block text-sm text-gray-700">Auren</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="Prime-D" name="Choice" type="checkbox" value="Prime" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="Prime-D" class="ml-3 block text-sm text-gray-700">Prime</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input id="Davis-D" name="Choice" type="checkbox" value="Davis" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                <label for="Davis-D" class="ml-3 block text-sm text-gray-700">Davis</label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Submit Button - Deletion -->
+                    <button 
+                        type="submit" 
+                        class="submit-button w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-[1.01] focus:outline-none focus:ring-4 focus:ring-red-500 focus:ring-opacity-50 flex items-center justify-center disabled:opacity-60 disabled:cursor-not-allowed"
+                    >
+                        <span class="button-text">Submit Deletion Request</span>
+                        <span class="button-spinner hidden ml-3 spinner"></span>
+                    </button>
+                </form>
             </div>
 
-            <!-- Email Field -->
-            <div>
-                <label for="Email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                <input 
-                    type="email" 
-                    id="Email" 
-                    name="Email" 
-                    required 
-                    placeholder="example@domain.com"
-                    class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                >
-            </div>
-            
-            <!-- Single Choice Field (Select Dropdown for Account Type) -->
-            <div>
-                <label for="AccountType" class="block text-sm font-medium text-gray-700 mb-1">Account Type</label>
-                <select 
-                    id="AccountType" 
-                    name="AccountType" 
-                    required
-                    class="form-input form-select w-full px-4 py-2 border border-gray-300 rounded-lg appearance-none bg-white focus:ring-2 focus:ring-blue-500"
-                >
-                    <option value="Admin">Admin</option>
-                    <option value="User" selected>User</option>
-                </select>
-            </div>
-
-            <!-- Multiple Choice Field (Checkboxes) -->
-            <fieldset>
-                <legend class="block text-sm font-medium text-gray-700 mb-2">Select Options (Multiple Choice) <span class="text-red-500">*</span></legend>
-                <div class="space-y-3">
-                    <!-- Option MFI -->
-                    <div class="flex items-center">
-                        <input id="MFI" name="Choice" type="checkbox" value="MFI" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="MFI" class="ml-3 block text-sm text-gray-700">MFI</label>
-                    </div>
-                    <!-- Option Auren -->
-                    <div class="flex items-center">
-                        <input id="Auren" name="Choice" type="checkbox" value="Auren" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="Auren" class="ml-3 block text-sm text-gray-700">Auren</label>
-                    </div>
-                    <!-- Option Prime -->
-                    <div class="flex items-center">
-                        <input id="Prime" name="Choice" type="checkbox" value="Prime" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="Prime" class="ml-3 block text-sm text-gray-700">Prime</label>
-                    </div>
-                    <!-- Option Davis -->
-                    <div class="flex items-center">
-                        <input id="Davis" name="Choice" type="checkbox" value="Davis" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                        <label for="Davis" class="ml-3 block text-sm text-gray-700">Davis</label>
-                    </div>
-                </div>
-            </fieldset>
-
-            <!-- Submit Button -->
-            <button 
-                type="submit" 
-                id="submit-button"
-                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-[1.01] focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 flex items-center justify-center disabled:opacity-60 disabled:cursor-not-allowed"
-            >
-                <span id="button-text">Submit Data</span>
-                <span id="button-spinner" class="hidden ml-3 spinner"></span>
-            </button>
-        </form>
+        </div> <!-- End Tab Content Container -->
 
         <footer class="mt-8 text-center text-xs text-gray-400">
             Data will be securely sent to the Make.com webhook.
@@ -154,117 +227,251 @@
     </div>
 
     <script>
-        const form = document.getElementById('data-form');
-        const submitButton = document.getElementById('submit-button');
-        const buttonText = document.getElementById('button-text');
-        const buttonSpinner = document.getElementById('button-spinner');
+        const webhookUrl = "https://hook.us1.make.com/9ts6i3xmuhosy9qh2andkh3bqokrcmgh";
+        const creationForm = document.getElementById('creation-form');
+        const deletionForm = document.getElementById('deletion-form');
         const statusMessage = document.getElementById('status-message');
-        const webhookUrl = form.action;
 
-        // Function to enable/disable all form fields
-        function setFormDisabled(disabled) {
+        // --- TAB SWITCHING LOGIC ---
+
+        function showTab(tabName) {
+            // Hide all content and remove active state from all buttons
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected content and set active state on the button
+            document.getElementById(`${tabName}-tab-content`).classList.remove('hidden');
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+            
+            // Clear status message when switching tabs
+            statusMessage.classList.add('hidden');
+        }
+
+        // Initialize the first tab as active
+        window.onload = () => {
+            showTab('creation');
+        };
+
+
+        // --- UI HELPER FUNCTIONS ---
+
+        function setFormDisabled(form, disabled) {
             const elements = form.elements;
             for (let i = 0; i < elements.length; i++) {
-                // Skip the submit button itself, as we control its disabled state separately
-                if (elements[i].id !== 'submit-button') {
+                // Ensure we don't disable the entire form, just inputs/selects/checkboxes
+                if (!elements[i].classList.contains('submit-button')) {
                     elements[i].disabled = disabled;
                 }
             }
-            submitButton.disabled = disabled;
         }
 
-        // Function to update the UI for loading state
-        function setLoading(isLoading) {
+        function setLoading(isLoading, form) {
+            const submitButton = form.querySelector('.submit-button');
+            const buttonText = form.querySelector('.button-text');
+            const buttonSpinner = form.querySelector('.button-spinner');
+
             if (isLoading) {
-                setFormDisabled(true);
+                setFormDisabled(form, true);
                 buttonText.textContent = 'Processing...';
                 buttonSpinner.classList.remove('hidden');
-                statusMessage.classList.add('hidden'); // Hide previous messages
+                submitButton.disabled = true; // IMPORTANT: Disable the button explicitly
+                statusMessage.classList.add('hidden'); 
             } else {
                 buttonSpinner.classList.add('hidden');
-                buttonText.textContent = 'Submit Data';
-                setFormDisabled(false); // Re-enable all fields if not accepted
+                // The button text should revert to its original context
+                buttonText.textContent = form.id === 'creation-form' ? 'Submit Creation Request' : 'Submit Deletion Request';
+                // NOTE: We rely on the 'finally' block to call setFormDisabled(form, false)
             }
         }
 
-        // Function to display the final status message
-        function showStatus(message, type) {
-            statusMessage.textContent = message;
+        function showStatus(content, type) {
+            // content can be a string (error) or an array of strings (webhook response)
             statusMessage.classList.remove('hidden', 'bg-red-100', 'text-red-700', 'bg-green-100', 'text-green-700');
-            
-            if (type === 'success') {
-                statusMessage.classList.add('bg-green-100', 'text-green-700');
-            } else if (type === 'error') {
+            statusMessage.innerHTML = ''; // Clear previous content
+
+            if (type === 'error') {
                 statusMessage.classList.add('bg-red-100', 'text-red-700');
+                statusMessage.textContent = content; // content is a simple error string
+            } else if (type === 'success' && Array.isArray(content)) {
+                // Handle the array response from the webhook
+                statusMessage.classList.add('bg-green-100', 'text-green-700');
+                
+                // Add a title and list the items
+                const title = document.createElement('p');
+                title.className = 'font-bold mb-2';
+                title.textContent = 'Operation Result Details:';
+                statusMessage.appendChild(title);
+
+                const ul = document.createElement('ul');
+                ul.className = 'list-disc list-inside text-left mx-auto max-w-xs';
+                
+                content.forEach(item => {
+                    const li = document.createElement('li');
+                    li.textContent = item;
+                    
+                    // Enhancement: Color-code status for better readability
+                    // Failure conditions: NOT DELETED, failed, Error:, exists (for creation failures)
+                    if (item.includes('NOT DELETED') || item.includes('failed') || item.includes('Error:') || item.includes('exists')) {
+                        li.classList.add('text-red-700', 'font-semibold');
+                    // Success conditions: DELETED, created, success
+                    } else if (item.includes('DELETED') || item.includes('created') || item.includes('success')) {
+                         li.classList.add('text-green-700', 'font-semibold');
+                    } else {
+                        li.classList.add('text-gray-900');
+                    }
+                    
+                    ul.appendChild(li);
+                });
+                statusMessage.appendChild(ul);
+
+            } else {
+                 // Fallback for generic success (should not happen if array is always returned)
+                statusMessage.classList.add('bg-green-100', 'text-green-700');
+                statusMessage.textContent = 'Request submitted successfully. No detailed response available.';
             }
 
-            // Hide the status message after 5 seconds
-            setTimeout(() => {
-                statusMessage.classList.add('hidden');
-            }, 5000);
+            // The status message remains visible until the next submission or tab change
         }
 
-        // Main form submission logic
-        form.addEventListener('submit', async function(event) {
+        // --- MAIN SUBMISSION LOGIC ---
+
+        async function handleFormSubmit(event, operationType) {
             event.preventDefault();
 
-            // 1. Prepare data (handling checkboxes)
+            const form = event.target;
+            
+            // 1. Prepare data & Validation
             const formData = new FormData(form);
             const data = {};
             
             // Collect all checkbox values under the 'Choice' key
             const choices = formData.getAll('Choice');
             
-            // --- MANDATORY CHECKBOX VALIDATION (NEW) ---
+            // MANDATORY CHECKBOX VALIDATION
             if (choices.length === 0) {
                 showStatus('Please select at least one option from the Multiple Choice field.', 'error');
-                return; // Stop submission and return to the form immediately
+                return; // Stop submission
             }
-            // --------------------------------------------
 
-            // Loop through all fields, but handle 'Choice' separately for the webhook's structure
+            // Loop through all fields, using .entries() to get unique keys
             for (const [key, value] of formData.entries()) {
+                // We skip 'Choice' here because we already collected it as an array
                 if (key !== 'Choice') {
                     data[key] = value;
                 }
             }
             
-            // Add choices array (now we know it has at least one item)
+            // Add choices array and the Operation Type
             data['Choice'] = choices; 
+            data['Operation'] = operationType; // <-- THE KEY DIFFERENTIATOR
 
             // 2. Start loading state
-            setLoading(true);
+            setLoading(true, form);
 
             try {
                 // 3. Make the asynchronous request
                 const response = await fetch(webhookUrl, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json' // Sending data as JSON for better array handling
+                        'Content-Type': 'application/json' 
                     },
                     body: JSON.stringify(data)
                 });
 
                 // 4. Handle response from Make.com
                 if (response.ok) {
-                    showStatus('Data successfully accepted and processed (Accepted).', 'success');
-                    // 5. Clean the form after success
+                    const responseText = await response.text(); 
+                    // Sanitize non-breaking spaces
+                    let sanitizedResponseText = responseText.replace(/\u00A0/g, ' ').trim(); 
+                    let result = null;
+                    
+                    try {
+                        let jsonString = sanitizedResponseText;
+                        
+                        // Step 1: Extract the pure JSON part: { ... }
+                        const jsonStart = sanitizedResponseText.indexOf('{');
+                        const jsonEnd = sanitizedResponseText.lastIndexOf('}');
+
+                        if (jsonStart !== -1 && jsonEnd !== -1 && jsonEnd > jsonStart) {
+                            jsonString = sanitizedResponseText.substring(jsonStart, jsonEnd + 1);
+                        }
+                        
+                        // Step 2: **CORRECCIÓN CRÍTICA** - Arreglar la estructura de JSON inválida que no cita el contenido del array.
+                        // Patrón inválido: "response":[unquoted content]
+                        // Buscamos el patrón y, si el contenido no está citado, lo citamos.
+                        const contentMatch = jsonString.match(/"response":\[(.*?)\]/);
+                        
+                        if (contentMatch && contentMatch.length > 1) {
+                            const rawContent = contentMatch[1].trim();
+                            
+                            // Comprobamos si el contenido no está ya entre comillas (lo cual lo haría válido)
+                            if (rawContent && !rawContent.startsWith('"')) {
+                                // Escapamos cualquier comilla doble que el contenido pueda tener y lo envolvemos en comillas dobles
+                                const quotedContent = `"${rawContent.replace(/"/g, '\\"')}"`; 
+                                // Reemplazamos la parte inválida por la parte corregida
+                                jsonString = jsonString.replace(contentMatch[0], `"response":[${quotedContent}]`);
+                                console.log('JSON corregido para parsing:', jsonString);
+                            }
+                        }
+                        // Fin CORRECCIÓN CRÍTICA
+                        
+                        // Step 3: Intentar analizar el (potencialmente corregido) JSON
+                        if (jsonString) {
+                            result = JSON.parse(jsonString);
+                        }
+                    } catch (e) {
+                        // El parsing falló incluso después del intento de corrección (esto indica un JSON muy mal formado)
+                        console.warn("Could not parse JSON from response text after extraction/fix:", e);
+                    }
+
+                    // Step 4: Procesar el resultado
+                    if (result && Array.isArray(result.response)) {
+                        let messages = result.response;
+                        
+                        // Si el array contiene una única cadena grande (que es lo que el webhook parece enviar), la dividimos por el separador ', '
+                        if (messages.length === 1 && typeof messages[0] === 'string' && messages[0].includes(', ')) {
+                            messages = messages[0].split(', ');
+                        }
+
+                        showStatus(messages, 'success');
+                    } else if (responseText && responseText.trim() !== '') {
+                        // Fallback si 200 OK pero sin el campo 'response' o si el JSON no se pudo analizar
+                        showStatus([`${operationType} request was successful. Webhook returned raw text: ${responseText}`], 'success');
+                    }
+                    else {
+                        // Mensaje de fallback si 200 OK y cuerpo vacío
+                        showStatus([`${operationType} request submitted successfully. No detailed response was returned from the webhook.`], 'success');
+                    }
+                    
+                    // 5. Limpiar el formulario
                     form.reset();
-                    // Keep the button enabled, but the form empty
-                    setLoading(false); 
+                    
                 } else {
-                    // Make.com returns 200/202 for successful reception, but if there's a real network or server error (e.g. 500, 404)
-                    showStatus(`Error (${response.status}): The webhook could not be reached or returned an error.`, 'error');
-                    setLoading(false); 
+                    // Error de red o servidor (ej., 500, 404)
+                    showStatus(`Error (${response.status}): The webhook could not be reached or returned a server error.`, 'error');
                 }
 
             } catch (error) {
-                // Network error, CORS issue, or other failure
+                // Error de conexión
                 console.error('Submission failed:', error);
                 showStatus('Connection Error: The form could not be submitted. Check your network.', 'error');
-                setLoading(false);
+            } finally {
+                // Reactivar campos y botón
+                setLoading(false, form);
+                setFormDisabled(form, false); 
+                const submitButton = form.querySelector('.submit-button');
+                submitButton.disabled = false;
             }
-        });
+        }
+
+        // Bind event listeners to both forms
+        creationForm.addEventListener('submit', (e) => handleFormSubmit(e, 'Creation'));
+        deletionForm.addEventListener('submit', (e) => handleFormSubmit(e, 'Deletion'));
+
     </script>
 </body>
 </html>
