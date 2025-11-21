@@ -76,7 +76,7 @@
             
             <!-- 1. Creation Form Tab Content -->
             <div id="creation-tab-content" class="tab-content">
-                <form id="creation-form" action="https://hook.us1.make.com/9ts6i3xmuhosy9qh2andkh3bqokrcmgh" method="POST" class="space-y-6">
+                <form id="creation-form" action="https://hook.us1.make.com/olr3mfvknw236rt9yn7stljw7gdcrlff" method="POST" class="space-y-6">
                     
                     <!-- Name Field -->
                     <div>
@@ -131,48 +131,27 @@
                         >
                     </div>
 
-                    <!-- Single Choice Field (Select Dropdown for Account Type) -->
+                    <!-- Single Choice Field (Account Type - Fixed to 'User') -->
                     <div>
                         <label for="AccountType" class="block text-sm font-medium text-gray-700 mb-1">Account Type</label>
-                        <select 
-                            id="AccountType" 
-                            name="AccountType" 
-                            required
-                            class="form-input form-select w-full px-4 py-2 border border-gray-300 rounded-lg appearance-none bg-white focus:ring-2 focus:ring-blue-500"
+                        <!-- Display-only version (disabled so the user knows it's fixed) -->
+                        <input 
+                            type="text" 
+                            id="AccountType-Display" 
+                            value="User (Fixed)" 
+                            disabled 
+                            class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-100 cursor-not-allowed text-gray-600"
                         >
-                            <option value="Admin">Admin</option>
-                            <option value="User" selected>User</option>
-                        </select>
+                        <!-- Hidden field to send the actual value "User" -->
+                        <input 
+                            type="hidden" 
+                            name="AccountType" 
+                            value="User"
+                        >
                     </div>
 
-                    <!-- Multiple Choice Field (Checkboxes) - Creation -->
-                    <fieldset>
-                        <legend class="block text-sm font-medium text-gray-700 mb-2">Select Options (Multiple Choice) <span class="text-red-500">*</span></legend>
-                        <div class="space-y-3">
-                            <!-- Options must have the same name attribute as the deletion form's options -->
-                            <div class="flex items-center">
-                                <input id="MFI-C" name="Choice" type="checkbox" value="MFI" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                                <label for="MFI-C" class="ml-3 block text-sm text-gray-700">MFI</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="MFI-Agent-C" name="Choice" type="checkbox" value="MFI-Agent" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                                <label for="MFI-Agent-C" class="ml-3 block text-sm text-gray-700">MFI - Agent</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="Auren-C" name="Choice" type="checkbox" value="Auren" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                                <label for="Auren-C" class="ml-3 block text-sm text-gray-700">Auren</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="Prime-C" name="Choice" type="checkbox" value="Prime" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                                <label for="Prime-C" class="ml-3 block text-sm text-gray-700">Prime</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="Davis-C" name="Choice" type="checkbox" value="Davis" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                                <label for="Davis-C" class="ml-3 block text-sm text-gray-700">Davis</label>
-                            </div>
-                        </div>
-                    </fieldset>
-
+                    <!-- Multiple Choice Field (Checkboxes) - REMOVED -->
+                    
                     <!-- Submit Button - Creation -->
                     <button 
                         type="submit" 
@@ -186,7 +165,7 @@
 
             <!-- 2. Deletion Form Tab Content -->
             <div id="deletion-tab-content" class="tab-content hidden">
-                <form id="deletion-form" action="https://hook.us1.make.com/9ts6i3xmuhosy9qh2andkh3bqokrcmgh" method="POST" class="space-y-6">
+                <form id="deletion-form" action="https://hook.us1.make.com/olr3mfvknw236rt9yn7stljw7gdcrlff" method="POST" class="space-y-6">
 
                     <!-- Email Field -->
                     <div>
@@ -201,36 +180,7 @@
                         >
                     </div>
 
-                    <!-- Password Field (New) - REMOVED AS REQUESTED -->
-                    <!-- The deletion form now only requires Email and the choices -->
-
-                    <!-- Multiple Choice Field (Checkboxes) - Deletion -->
-                    <fieldset>
-                        <legend class="block text-sm font-medium text-gray-700 mb-2">Select Options (Multiple Choice) <span class="text-red-500">*</span></legend>
-                        <div class="space-y-3">
-                            <!-- Options must have the same name attribute as the creation form's options -->
-                            <div class="flex items-center">
-                                <input id="MFI-D" name="Choice" type="checkbox" value="MFI" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                                <label for="MFI-D" class="ml-3 block text-sm text-gray-700">MFI</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="MFI-Agent-D" name="Choice" type="checkbox" value="MFI-Agent" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                                <label for="MFI-Agent-D" class="ml-3 block text-sm text-gray-700">MFI - Agent</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="Auren-D" name="Choice" type="checkbox" value="Auren" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                                <label for="Auren-D" class="ml-3 block text-sm text-gray-700">Auren</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="Prime-D" name="Choice" type="checkbox" value="Prime" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                                <label for="Prime-D" class="ml-3 block text-sm text-gray-700">Prime</label>
-                            </div>
-                            <div class="flex items-center">
-                                <input id="Davis-D" name="Choice" type="checkbox" value="Davis" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                                <label for="Davis-D" class="ml-3 block text-sm text-gray-700">Davis</label>
-                            </div>
-                        </div>
-                    </fieldset>
+                    <!-- Multiple Choice Field (Checkboxes) - REMOVED -->
 
                     <!-- Submit Button - Deletion -->
                     <button 
@@ -252,7 +202,9 @@
     </div>
 
     <script>
-        const webhookUrl = "https://hook.us1.make.com/9ts6i3xmuhosy9qh2andkh3bqokrcmgh";
+        // UPDATED WEBHOOK URL
+        const webhookUrl = "https://hook.us1.make.com/olr3mfvknw236rt9yn7stljw7gdcrlff";
+        
         const creationForm = document.getElementById('creation-form');
         const deletionForm = document.getElementById('deletion-form');
         const statusMessage = document.getElementById('status-message');
@@ -287,7 +239,7 @@
         function setFormDisabled(form, disabled) {
             const elements = form.elements;
             for (let i = 0; i < elements.length; i++) {
-                // Ensure we don't disable the entire form, just inputs/selects/checkboxes
+                // Ensure we don't disable the entire form, just inputs/selects/checkboxes/buttons
                 if (!elements[i].classList.contains('submit-button')) {
                     elements[i].disabled = disabled;
                 }
@@ -369,29 +321,16 @@
 
             const form = event.target;
             
-            // 1. Prepare data & Validation
+            // 1. Prepare data 
             const formData = new FormData(form);
             const data = {};
             
-            // Collect all checkbox values under the 'Choice' key
-            const choices = formData.getAll('Choice');
-            
-            // MANDATORY CHECKBOX VALIDATION
-            if (choices.length === 0) {
-                showStatus('Please select at least one option from the Multiple Choice field.', 'error');
-                return; // Stop submission
-            }
-
-            // Loop through all fields, using .entries() to get unique keys
+            // Collect all fields
             for (const [key, value] of formData.entries()) {
-                // We skip 'Choice' here because we already collected it as an array
-                if (key !== 'Choice') {
-                    data[key] = value;
-                }
+                data[key] = value;
             }
             
-            // Add choices array and the Operation Type
-            data['Choice'] = choices; 
+            // Add the Operation Type
             data['Operation'] = operationType; // <-- THE KEY DIFFERENTIATOR
 
             // 2. Start loading state
@@ -426,30 +365,23 @@
                         }
                         
                         // Step 2: **CORRECCIÓN CRÍTICA** - Arreglar la estructura de JSON inválida que no cita el contenido del array.
-                        // Patrón inválido: "response":[unquoted content]
-                        // Buscamos el patrón y, si el contenido no está citado, lo citamos.
                         const contentMatch = jsonString.match(/"response":\[(.*?)\]/);
                         
                         if (contentMatch && contentMatch.length > 1) {
                             const rawContent = contentMatch[1].trim();
                             
-                            // Comprobamos si el contenido no está ya entre comillas (lo cual lo haría válido)
                             if (rawContent && !rawContent.startsWith('"')) {
-                                // Escapamos cualquier comilla doble que el contenido pueda tener y lo envolvemos en comillas dobles
                                 const quotedContent = `"${rawContent.replace(/"/g, '\\"')}"`; 
-                                // Reemplazamos la parte inválida por la parte corregida
                                 jsonString = jsonString.replace(contentMatch[0], `"response":[${quotedContent}]`);
                                 console.log('JSON corregido para parsing:', jsonString);
                             }
                         }
-                        // Fin CORRECCIÓN CRÍTICA
                         
                         // Step 3: Intentar analizar el (potencialmente corregido) JSON
                         if (jsonString) {
                             result = JSON.parse(jsonString);
                         }
                     } catch (e) {
-                        // El parsing falló incluso después del intento de corrección (esto indica un JSON muy mal formado)
                         console.warn("Could not parse JSON from response text after extraction/fix:", e);
                     }
 
@@ -457,7 +389,7 @@
                     if (result && Array.isArray(result.response)) {
                         let messages = result.response;
                         
-                        // Si el array contiene una única cadena grande (que es lo que el webhook parece enviar), la dividimos por el separador ', '
+                        // Si el array contiene una única cadena grande, la dividimos
                         if (messages.length === 1 && typeof messages[0] === 'string' && messages[0].includes(', ')) {
                             messages = messages[0].split(', ');
                         }
@@ -478,6 +410,7 @@
                     // Re-apply default value for creation password after reset
                     if (operationType === 'Creation') {
                         document.getElementById('Password-C').value = 'Password123!';
+                        // The hidden input for AccountType remains 'User' automatically
                     }
                     
                 } else {
