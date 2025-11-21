@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE TML>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -117,6 +117,19 @@
                         >
                     </div>
                     
+                    <!-- Password Field (New) -->
+                    <div>
+                        <label for="Password-C" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input 
+                            type="text" 
+                            id="Password-C" 
+                            name="Password" 
+                            required 
+                            placeholder="Enter your desired password"
+                            class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        >
+                    </div>
+
                     <!-- Single Choice Field (Select Dropdown for Account Type) -->
                     <div>
                         <label for="AccountType" class="block text-sm font-medium text-gray-700 mb-1">Account Type</label>
@@ -152,10 +165,6 @@
                                 <input id="Prime-C" name="Choice" type="checkbox" value="Prime" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
                                 <label for="Prime-C" class="ml-3 block text-sm text-gray-700">Prime</label>
                             </div>
-                            <div class="flex items-center">
-                                <input id="Davis-C" name="Choice" type="checkbox" value="Davis" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
-                                <label for="Davis-C" class="ml-3 block text-sm text-gray-700">Davis</label>
-                            </div>
                         </div>
                     </fieldset>
 
@@ -187,6 +196,19 @@
                         >
                     </div>
 
+                    <!-- Password Field (New) -->
+                    <div>
+                        <label for="Password-D" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input 
+                            type="text" 
+                            id="Password-D" 
+                            name="Password" 
+                            required 
+                            placeholder="Enter password for verification"
+                            class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                        >
+                    </div>
+
                     <!-- Multiple Choice Field (Checkboxes) - Deletion -->
                     <fieldset>
                         <legend class="block text-sm font-medium text-gray-700 mb-2">Select Options (Multiple Choice) <span class="text-red-500">*</span></legend>
@@ -196,7 +218,7 @@
                                 <input id="MFI-D" name="Choice" type="checkbox" value="MFI" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
                                 <label for="MFI-D" class="ml-3 block text-sm text-gray-700">MFI</label>
                             </div>
-                                                        <div class="flex items-center">
+                            <div class="flex items-center">
                                 <input id="MFI-Agent-D" name="Choice" type="checkbox" value="MFI-Agent" class="form-checkbox h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
                                 <label for="MFI-Agent-D" class="ml-3 block text-sm text-gray-700">MFI - Agent</label>
                             </div>
